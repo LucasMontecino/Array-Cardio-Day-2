@@ -21,7 +21,10 @@ const olderThan = (old, born, number) => {
   return old - born > number;
 };
 
-const somePeople = people.some((el) => olderThan(2023, el.year, 19));
+const somePeople = people.some((el) => {
+  const currentYear = new Date().getFullYear();
+  return olderThan(currentYear, el.year, 19);
+});
 console.log(somePeople);
 
 // Array.prototype.every() // is everyone 19 or older?
@@ -44,7 +47,12 @@ console.log(findComment);
 const findIndexComment = comments.findIndex((el) => el.id === 823423);
 console.log(findIndexComment);
 
-const filterComments = comments.filter(
-  (el, index) => index !== findIndexComment
-);
-console.log(filterComments);
+// comments.splice(findIndexComment, 1);
+console.log(comments);
+
+const newComments = [
+  ...comments.slice(0, findIndexComment),
+  ...comments.slice(findIndexComment + 1),
+];
+
+console.log(newComments);
