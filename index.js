@@ -17,42 +17,39 @@ const comments = [
 
 // Some and Every Checks
 // Array.prototype.some() // is at least one person 19 or older?
-const olderThan = (old, born, number) => {
-  return old - born > number;
+const adultFunction = (yearBorn, age) => {
+  const currentYear = new Date().getFullYear();
+  return currentYear - yearBorn >= age;
 };
 
-const somePeople = people.some((el) => {
-  const currentYear = new Date().getFullYear();
-  return olderThan(currentYear, el.year, 19);
-});
-console.log(somePeople);
+const isAdult = people.some((el) => adultFunction(el.year, 19));
+console.log(isAdult);
 
 // Array.prototype.every() // is everyone 19 or older?
-const olderOrEqual = (old, born, number) => {
-  return old - born >= number;
-};
-
-const everyPeople = people.every((el) => olderOrEqual(2023, el.year, 19));
-console.log(everyPeople);
+const allAdult = people.every((el) => adultFunction(el.year, 19));
+console.log(allAdult);
 
 // Array.prototype.find()
 // Find is like filter, but instead returns just the one you are looking for
 // find the comment with the ID of 823423
-const findComment = comments.find((el) => el.id === 823423);
-console.log(findComment);
+let id = 823423;
+
+const findId = comments.find((el) => el.id === id);
+console.log(findId);
 
 // Array.prototype.findIndex()
 // Find the comment with this ID
 // delete the comment with the ID of 823423
-const findIndexComment = comments.findIndex((el) => el.id === 823423);
-console.log(findIndexComment);
 
-// comments.splice(findIndexComment, 1);
-console.log(comments);
+const index = comments.findIndex((el) => el.id === id);
+console.log(index);
 
-const newComments = [
-  ...comments.slice(0, findIndexComment),
-  ...comments.slice(findIndexComment + 1),
-];
+// de esta forma modifico el array
+// comments.splice(index, 1);
+// console.table(comments);
 
-console.log(newComments);
+// no modifico el array original, creo uno nuevo
+
+const newComments = [...comments.slice(0, index), ...comments.slice(index + 1)];
+console.table(comments);
+console.table(newComments);
